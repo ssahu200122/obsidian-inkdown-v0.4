@@ -1,0 +1,9 @@
+{
+  "id": "inkdown",
+  "name": "Inkdown",
+  "version": "0.5.2",
+  "minAppVersion": "1.5.0",
+  "description": "A spatial Markdown notebook with freeform writing, ink and canvas navigation.",
+  "author": "Inkdown contributors",
+  "isDesktopOnly": false
+}

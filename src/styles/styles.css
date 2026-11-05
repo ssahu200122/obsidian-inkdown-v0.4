@@ -1,0 +1,267 @@
+.inkdown-view {
+  --inkdown-accent: var(--interactive-accent);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--background-primary);
+}
+.inkdown-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 64px;
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  flex-shrink: 0;
+}
+.inkdown-brand-area { display: flex; align-items: center; gap: 10px; min-width: 168px; }
+.inkdown-logo {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border-radius: 9px; background: var(--interactive-accent);
+  color: white; font-size: 22px; font-weight: 800; font-family: var(--font-interface);
+}
+.inkdown-brand-name { font-size: 14px; font-weight: 750; color: var(--text-normal); line-height: 1.2; }
+.inkdown-brand-subtitle { font-size: 8px; letter-spacing: 1.35px; color: var(--text-faint); margin-top: 3px; }
+.inkdown-tool-group { display: flex; align-items: center; gap: 5px; padding: 4px; border-radius: 10px; background: var(--background-primary); border: 1px solid var(--background-modifier-border); }
+.inkdown-tool-button {
+  display: flex; align-items: center; gap: 7px; border: 0; border-radius: 7px;
+  padding: 8px 11px; background: transparent; color: var(--text-muted);
+  font-size: 12px; cursor: pointer; transition: background .12s ease, color .12s ease;
+}
+.inkdown-tool-button:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.inkdown-tool-button.is-active { background: var(--interactive-accent); color: var(--text-on-accent, white); box-shadow: 0 1px 3px rgba(0,0,0,.16); }
+.inkdown-tool-icon svg, .inkdown-icon-button svg { width: 16px; height: 16px; }
+.inkdown-action-group { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.inkdown-icon-button {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border: 1px solid transparent; border-radius: 8px; background: transparent;
+  color: var(--text-muted); cursor: pointer;
+}
+.inkdown-icon-button:hover { border-color: var(--background-modifier-border); background: var(--background-modifier-hover); color: var(--text-normal); }
+.inkdown-zoom-label { min-width: 46px; text-align: center; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.inkdown-statusbar {
+  min-height: 25px; padding: 5px 18px; border-bottom: 1px solid var(--background-modifier-border);
+  color: var(--text-faint); font-size: 10px; letter-spacing: .1px;
+  background: var(--background-primary); flex-shrink: 0;
+}
+.inkdown-viewport {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  background-color: var(--background-primary);
+  background-image: radial-gradient(var(--background-modifier-border) .75px, transparent .75px);
+  background-size: 24px 24px;
+  background-position: var(--inkdown-grid-x, 0px) var(--inkdown-grid-y, 0px);
+  touch-action: none; cursor: default;
+}
+.inkdown-viewport.is-panning { cursor: grabbing; }
+.inkdown-viewport[data-tool="pen"], .inkdown-viewport[data-tool="eraser"] { cursor: crosshair; }
+.inkdown-world {
+  position: absolute; left: 0; top: 0; width: 100000px; height: 100000px;
+  transform-origin: 0 0; will-change: transform;
+  overflow: visible;
+}
+.inkdown-object {
+  position: absolute; z-index: 4; min-width: 180px; min-height: 100px;
+  box-sizing: border-box; border: 1px solid transparent; border-radius: 5px;
+  padding: 10px 12px; background: transparent; color: var(--text-normal);
+  overflow: visible;
+}
+.inkdown-object:hover {
+  background: color-mix(in srgb, var(--background-secondary) 16%, transparent);
+}
+.inkdown-object.is-selected {
+  border-color: var(--interactive-accent);
+  background: color-mix(in srgb, var(--background-secondary) 18%, transparent);
+}
+.inkdown-object-topbar {
+  position: absolute; top: -25px; left: 0; right: 0; height: 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; pointer-events: none; transition: opacity .12s ease;
+}
+.inkdown-object:hover .inkdown-object-topbar,
+.inkdown-object.is-selected .inkdown-object-topbar { opacity: 1; pointer-events: auto; }
+.inkdown-object-handle {
+  width: 25px; height: 20px; display: grid; place-items: center;
+  color: var(--text-muted); border-radius: 5px; cursor: grab;
+  user-select: none; font-size: 15px;
+}
+.inkdown-object-handle:hover { background: var(--background-modifier-hover); }
+.inkdown-object-handle:active { cursor: grabbing; }
+.inkdown-object-actions { display: flex; align-items: center; gap: 3px; }
+.inkdown-object-action {
+  width: 23px; height: 21px; display: grid; place-items: center;
+  padding: 0; border: 1px solid var(--background-modifier-border);
+  border-radius: 5px; background: var(--background-secondary);
+  color: var(--text-muted); cursor: pointer;
+}
+.inkdown-object-action svg { width: 12px; height: 12px; }
+.inkdown-object-action:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.inkdown-object-action.is-delete:hover { color: var(--text-error); }
+.inkdown-object-body { width: 100%; height: 100%; min-height: 70px; overflow: auto; }
+.inkdown-live-editor {
+  display: none; width: 100%; min-height: 100px; height: 100%;
+  resize: none; padding: 2px 0; border: 0 !important; outline: 0 !important;
+  box-shadow: none !important; border-radius: 0; background: transparent !important;
+  color: var(--text-normal); font-family: var(--font-text);
+  font-size: var(--font-size); line-height: var(--line-height-normal);
+}
+.inkdown-object.is-editing .inkdown-live-editor { display: block; }
+.inkdown-object.is-editing .inkdown-live-preview { display: block; }
+.inkdown-live-editor:focus { background: transparent !important; }
+.inkdown-live-preview {
+  display: block; width: 100%; height: 100%; overflow: auto;
+  overflow-wrap: anywhere; color: var(--text-normal);
+}
+.inkdown-object.is-editing .inkdown-live-preview {
+  max-height: 42%; margin-top: 8px; padding-top: 8px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+.inkdown-live-preview > :first-child { margin-top: 0; }
+.inkdown-live-preview > :last-child { margin-bottom: 0; }
+.inkdown-live-preview img { max-width: 100%; }
+.inkdown-live-preview pre { max-width: 100%; overflow: auto; }
+.inkdown-live-preview .math-block { overflow-x: auto; }
+.inkdown-live-preview mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.inkdown-resize-handle { position: absolute; z-index: 8; opacity: 0; background: var(--interactive-accent); border: 1px solid var(--background-primary); }
+.inkdown-object.is-selected .inkdown-resize-handle { opacity: 1; }
+.inkdown-resize-n, .inkdown-resize-s { height: 5px; left: 10px; right: 10px; cursor: ns-resize; }
+.inkdown-resize-n { top: -3px; } .inkdown-resize-s { bottom: -3px; }
+.inkdown-resize-e, .inkdown-resize-w { width: 5px; top: 10px; bottom: 10px; cursor: ew-resize; }
+.inkdown-resize-e { right: -3px; } .inkdown-resize-w { left: -3px; }
+.inkdown-resize-ne, .inkdown-resize-nw, .inkdown-resize-se, .inkdown-resize-sw { width: 9px; height: 9px; border-radius: 2px; }
+.inkdown-resize-ne { top: -5px; right: -5px; cursor: nesw-resize; }
+.inkdown-resize-nw { top: -5px; left: -5px; cursor: nwse-resize; }
+.inkdown-resize-se { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.inkdown-resize-sw { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.inkdown-ink-layer { position: absolute; inset: 0; z-index: 3; overflow: visible; pointer-events: none; }
+.inkdown-viewport[data-tool="pen"] .inkdown-ink-layer,
+.inkdown-viewport[data-tool="eraser"] .inkdown-ink-layer { z-index: 6; pointer-events: auto; touch-action: none; }
+.inkdown-viewport[data-tool="pen"] .inkdown-object,
+.inkdown-viewport[data-tool="eraser"] .inkdown-object { pointer-events: none; }
+.inkdown-viewport[data-tool="pen"] .inkdown-object-topbar,
+.inkdown-viewport[data-tool="eraser"] .inkdown-object-topbar { display: none; }
+.inkdown-context-menu {
+  position: fixed; z-index: 1000; min-width: 190px; padding: 5px;
+  border: 1px solid var(--background-modifier-border); border-radius: 10px;
+  background: var(--background-secondary); box-shadow: 0 12px 34px rgba(0,0,0,.24);
+}
+.inkdown-context-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; font-size: 12px; color: var(--text-normal); cursor: pointer; }
+.inkdown-context-item:hover { background: var(--background-modifier-hover); }
+.inkdown-context-item svg { width: 14px; height: 14px; color: var(--text-muted); }
+.inkdown-context-item.is-danger { color: var(--text-error); }
+.inkdown-context-item.is-danger svg { color: var(--text-error); }
+.inkdown-context-divider { height: 1px; margin: 4px 3px; background: var(--background-modifier-border); }
+@media (max-width: 700px) {
+  .inkdown-ribbon { gap: 8px; padding: 7px; }
+  .inkdown-brand-area { min-width: auto; }
+  .inkdown-brand-subtitle, .inkdown-tool-label { display: none; }
+  .inkdown-tool-button { padding: 8px; }
+}
+
+/* Temporary insertion caret: no visible empty textbox until first input. */
+.inkdown-pending-caret {
+  position: absolute;
+  z-index: 12;
+  width: 2px !important;
+  min-width: 2px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  margin: 0;
+  padding: 0 !important;
+  resize: none;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: transparent !important;
+  caret-color: var(--text-accent, var(--interactive-accent)) !important;
+  font: inherit;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+/* v0.4.3: canvas focus is transient; deselected text has no visible frame. */
+.inkdown-object:not(.is-selected) {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+.inkdown-object:not(.is-selected) .inkdown-object-topbar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.inkdown-pending-caret:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+
+/* v0.4.5 — content-driven text object height */
+.inkdown-object-body {
+  width: 100%;
+  height: auto;
+  min-height: 70px;
+  overflow: visible;
+}
+.inkdown-live-editor {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 100px;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.inkdown-live-preview {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+.inkdown-object.is-editing .inkdown-live-preview {
+  max-height: 42%;
+  overflow: auto;
+}
+
+
+/* CodeMirror 6 Markdown editor surface */
+.inkdown-cm-host {
+  display: none;
+  width: 100%;
+  min-height: 100px;
+  color: var(--text-normal);
+  font-family: var(--font-text);
+}
+.inkdown-object.is-editing .inkdown-cm-host { display: block; }
+.inkdown-cm-host .cm-editor {
+  width: 100%;
+  background: transparent;
+  color: var(--text-normal);
+}
+.inkdown-cm-host .cm-content {
+  caret-color: var(--text-accent);
+  line-height: var(--line-height-normal);
+}
+.inkdown-cm-host .cm-line { padding: 0; }
+.inkdown-cm-host .cm-scroller { overflow: visible; }
+.inkdown-cm-host .cm-cursor { border-left-color: var(--text-accent); }
+.inkdown-cm-host .cm-selectionBackground { background: var(--text-selection) !important; }
+.inkdown-object.is-editing .inkdown-live-preview {
+  max-height: 42%;
+  overflow: auto;
+}
+
+/* Keep the canvas genuinely navigable in every direction. */
+.inkdown-viewport { overscroll-behavior: contain; }
+.inkdown-world { min-width: 100000px; min-height: 100000px; }
+
+
+/* Keep insertion caret interactive and visually unobtrusive. */
+.inkdown-pending-caret {
+  pointer-events: auto;
+  user-select: text;
+  cursor: text;
+}
